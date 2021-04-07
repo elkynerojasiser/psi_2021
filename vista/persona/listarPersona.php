@@ -52,7 +52,6 @@ include_once '../../modelo/persona.php';
                             echo "</tr>";
                         }
                         ?>
-
                     </tbody>
                 </table>
             </div>
