@@ -28,6 +28,12 @@ include_once '../../modelo/persona.php';
         </div>
         <div class="row">
             <div class="col-md-10 offset-md-1">
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-primary" href="formularioCrearPersona.php">Crear nuevo</a>
+                    </div>
+                </div>
+                <br>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

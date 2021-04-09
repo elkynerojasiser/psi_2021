@@ -7,8 +7,12 @@ class persona {
     private $per_fecha_nacimiento;
     private $per_salario;
     
-    function __construct() {
-        
+    function __construct($per_id,$per_nombre,$per_apellido,$per_fecha_nacimiento,$per_salario) {
+        $this->per_id = $per_id;
+        $this->per_nombre = $per_nombre;
+        $this->per_apellido = $per_apellido;
+        $this->per_fecha_nacimiento = $per_fecha_nacimiento;
+        $this->per_salario = $per_salario;
     }
 
     function setPerId($per_id) {

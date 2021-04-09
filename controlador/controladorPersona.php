@@ -18,12 +18,18 @@ class controladorPersona{
             $ps->execute(NULL);
             $resultado = [];
             while($row = $ps->fetch(PDO::FETCH_OBJ)){
-                $persona = new persona();
-                $persona->setPerId($row->per_id);
-                $persona->setPerNombre($row->per_nombre);
-                $persona->setPerApellido($row->per_apellido);
-                $persona->setPerFechaNacimiento($row->per_fecha_nacimiento);
-                $persona->setPerSalario($row->per_salario);
+                $persona = new persona(
+                    $row->per_id,
+                    $row->per_nombre,
+                    $row->per_apellido,
+                    $row->per_fecha_nacimiento,
+                    $row->per_salario
+                );
+                // $persona->setPerId($row->per_id);
+                // $persona->setPerNombre($row->per_nombre);
+                // $persona->setPerApellido($row->per_apellido);
+                // $persona->setPerFechaNacimiento($row->per_fecha_nacimiento);
+                // $persona->setPerSalario($row->per_salario);
                 array_push($resultado,$persona);
             }
             $this->conexion = null;
@@ -31,6 +37,37 @@ class controladorPersona{
             echo "Falló la conexión " . $e->getMessage();
         }
 
+        return $resultado;
+    }
+
+    function crear($persona){
+        try{
+            $resultado = [];
+            $sql = "insert into persona values (?,?,?,?,?)";
+            $ps = $this->conexion->getConexion()->prepare($sql);
+            $ps->execute(array(
+                $persona->getPerId(),
+                $persona->getPerNombre(),
+                $persona->getPerApellido(),
+                $persona->getPerFechaNacimiento(),
+                $persona->getPerSalario()
+            ));
+            if($ps->rowCount() > 0){
+                $mensaje = "Se creó la persona correctamente";
+                $type = "success";
+            }else{
+                $mensaje = "No se pudo crear la persona";
+                $type = "error";
+            }
+            $this->conexion = null;
+        }catch(PDOException $e){
+            $mensaje = "Error al crear la persona " .$e->getMessage(); 
+            $type = "error";
+        }
+        $resultado = [
+            "mensaje" => $mensaje,
+            "type"    => $type
+        ];
         return $resultado;
     }
 }
