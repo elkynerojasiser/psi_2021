@@ -26,34 +26,13 @@ include_once '../../controlador/controladorPersona.php';
                     if (!isset($_REQUEST["identificacion"])) {
                         throw new PDOException("Por favor digite la identificación");
                     }
-                    if (!isset($_REQUEST["nombre"])) {
-                        throw new PDOException("Por favor digite el nombre");
-                    }
-                    if (!isset($_REQUEST["apellido"])) {
-                        throw new PDOException("Por favor digite el apellido");
-                    }
-                    if (!isset($_REQUEST["fecha_nacimiento"])) {
-                        throw new PDOException("Por favor digite la fecha de nacimiento");
-                    }
-                    if (!isset($_REQUEST["salario"])) {
-                        throw new PDOException("Por favor digite el salario");
-                    }
-
+                    
                     $per_id = $_REQUEST["identificacion"];
-                    $per_nombre = $_REQUEST["nombre"];
-                    $per_apellido = $_REQUEST["apellido"];
-                    $per_fecha_nacimiento = $_REQUEST["fecha_nacimiento"];
-                    $per_salario = $_REQUEST["salario"];
-
+                    
                     $persona = new persona();
                     $persona->setPerId($per_id);
-                    $persona->setPerNombre($per_nombre);
-                    $persona->setPerApellido($per_apellido);
-                    $persona->setPerFechaNacimiento($per_fecha_nacimiento);
-                    $persona->setPerSalario($per_salario);
-                    
                     $controladorPersona = new controladorPersona();
-                    $resultado = $controladorPersona->crear($persona);
+                    $resultado = $controladorPersona->eliminar($persona);
 
                     if($resultado["type"] == "success"){
                         echo '<h2 class="text-center text-success">'. $resultado["mensaje"] ."</h2>";

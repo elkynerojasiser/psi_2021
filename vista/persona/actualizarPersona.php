@@ -53,7 +53,7 @@ include_once '../../controlador/controladorPersona.php';
                     $persona->setPerSalario($per_salario);
                     
                     $controladorPersona = new controladorPersona();
-                    $resultado = $controladorPersona->crear($persona);
+                    $resultado = $controladorPersona->actualizar($persona);
 
                     if($resultado["type"] == "success"){
                         echo '<h2 class="text-center text-success">'. $resultado["mensaje"] ."</h2>";

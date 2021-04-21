@@ -42,6 +42,7 @@ include_once '../../modelo/persona.php';
                             <td>Apellido</td>
                             <td>Fecha de nacimiento</td>
                             <td>Salario</td>
+                            <td>Acciones</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,13 +50,42 @@ include_once '../../modelo/persona.php';
                         $controladorPersona = new controladorPersona();
                         $personas = $controladorPersona->listar();
                         foreach ($personas as $persona) {
-                            echo "<tr>";
-                            echo "<td>" . $persona->getPerId() . "</td>";
-                            echo "<td>" . $persona->getPerNombre() . "</td>";
-                            echo "<td>" . $persona->getPerApellido() . "</td>";
-                            echo "<td>" . $persona->getPerFechaNacimiento() . "</td>";
-                            echo "<td>" . $persona->getPerSalario() . "</td>";
-                            echo "</tr>";
+                            // echo "<tr>";
+                            // echo "<td>" . $persona->getPerId() . "</td>";
+                            // echo "<td>" . $persona->getPerNombre() . "</td>";
+                            // echo "<td>" . $persona->getPerApellido() . "</td>";
+                            // echo "<td>" . $persona->getPerFechaNacimiento() . "</td>";
+                            // echo "<td>" . $persona->getPerSalario() . "</td>";
+                            // echo "</tr>";
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $persona->getPerId() ?>
+                            </td>
+                            <td>
+                                <?php echo $persona->getPerNombre() ?>
+                            </td>
+                            <td>
+                            <?php echo $persona->getPerApellido() ?>
+                            </td>
+                            <td>
+                            <?php echo $persona->getPerFechaNacimiento() ?>
+                            </td>
+                            <td>
+                                <?php echo $persona->getPerSalario() ?>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a class="btn btn-warning" href="formularioEditarPersona.php?per_id=<?php echo $persona->getPerId() ?>">Editar</a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a class="btn btn-danger" href="formularioEliminarPersona.php?per_id=<?php echo $persona->getPerId() ?>">Eliminar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php
                         }
                         ?>
                     </tbody>
