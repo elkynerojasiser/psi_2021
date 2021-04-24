@@ -13,17 +13,23 @@ class controladorPersona{
     /* Listar los datos de personas (Read) */
     function listar(){
         try {
-            $sql = "select * from persona";
+            $sql = "select * from persona inner join dependencia on persona.per_dependencia_id = dependencia.dep_id";
             $ps = $this->conexion->getConexion()->prepare($sql);
             $ps->execute(NULL);
             $resultado = [];
             while($row = $ps->fetch(PDO::FETCH_OBJ)){
+                $dependencia = new dependencia();
+                $dependencia->setDepId($row->dep_id);
+                $dependencia->setDepNombre($row->dep_nombre);
+
                 $persona = new persona();
                 $persona->setPerId($row->per_id);
                 $persona->setPerNombre($row->per_nombre);
                 $persona->setPerApellido($row->per_apellido);
                 $persona->setPerFechaNacimiento($row->per_fecha_nacimiento);
                 $persona->setPerSalario($row->per_salario);
+                $persona->setPerDependenciaId($row->per_dependencia_id);
+                $persona->setDependencia($dependencia);
                 array_push($resultado,$persona);
             }
             $this->conexion = null;
@@ -37,14 +43,15 @@ class controladorPersona{
     function crear($persona){
         try{
             $resultado = [];
-            $sql = "insert into persona values (?,?,?,?,?)";
+            $sql = "insert into persona values (?,?,?,?,?,?)";
             $ps = $this->conexion->getConexion()->prepare($sql);
             $ps->execute(array(
                 $persona->getPerId(),
                 $persona->getPerNombre(),
                 $persona->getPerApellido(),
                 $persona->getPerFechaNacimiento(),
-                $persona->getPerSalario()
+                $persona->getPerSalario(),
+                $persona->getPerDependenciaId()
             ));
             if($ps->rowCount() > 0){
                 $mensaje = "Se creó la persona correctamente";
@@ -81,6 +88,7 @@ class controladorPersona{
                 $persona->setPerApellido($row->per_apellido);
                 $persona->setPerFechaNacimiento($row->per_fecha_nacimiento);
                 $persona->setPerSalario($row->per_salario);
+                $persona->setPerDependenciaId($row->per_dependencia_id);
                 array_push($resultado,$persona);
             }
             $this->conexion = null;
@@ -92,13 +100,14 @@ class controladorPersona{
 
     function actualizar($persona){
         $resultado = [];
-        $sql = "update persona set per_nombre=?, per_apellido=?, per_fecha_nacimiento=?, per_salario=? where per_id=?";
+        $sql = "update persona set per_nombre=?, per_apellido=?, per_fecha_nacimiento=?, per_salario=?, per_dependencia_id=? where per_id=?";
         $ps = $this->conexion->getConexion()->prepare($sql);
         $ps->execute(array(
             $persona->getPerNombre(),
             $persona->getPerApellido(),
             $persona->getPerFechaNacimiento(),
             $persona->getPerSalario(),
+            $persona->getPerDependenciaId(),
             $persona->getPerId()
         ));
         if($ps->rowCount() > 0){

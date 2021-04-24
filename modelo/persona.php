@@ -6,6 +6,8 @@ class persona {
     private $per_apellido;
     private $per_fecha_nacimiento;
     private $per_salario;
+    private $per_dependencia_id;
+    private $dependencia;
     
     function __construct() {
         
@@ -31,6 +33,14 @@ class persona {
         $this->per_salario = $per_salario;
     }
 
+    function setPerDependenciaId($per_dependencia_id) {
+        $this->per_dependencia_id = $per_dependencia_id;
+    }
+
+    function setDependencia($dependencia){
+        $this->dependencia = $dependencia;
+    }
+
     function getPerId() {
         return $this->per_id;
     }
@@ -49,5 +59,13 @@ class persona {
 
     function getPerSalario() {
         return $this->per_salario;
+    }
+
+    function getPerDependenciaId() {
+        return $this->per_dependencia_id;
+    }
+
+    function getDependencia() {
+        return $this->dependencia;
     }
 }

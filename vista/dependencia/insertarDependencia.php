@@ -1,8 +1,8 @@
 <!doctype html>
 <?php
-include_once '../../modelo/persona.php';
+include_once '../../modelo/dependencia.php';
 include_once '../../modelo/conexion.php';
-include_once '../../controlador/controladorPersona.php';
+include_once '../../controlador/controladorDependencia.php';
 ?>
 <html lang="es">
 
@@ -23,40 +23,22 @@ include_once '../../controlador/controladorPersona.php';
             <div class="col-md-10 offset-md-1">
                 <?php
                 try {
-                    if (!isset($_REQUEST["identificacion"])) {
-                        throw new PDOException("Por favor digite la identificación");
+                    if (!isset($_REQUEST["dep_id"])) {
+                        throw new PDOException("Por favor digite el id");
                     }
-                    if (!isset($_REQUEST["nombre"])) {
+                    if (!isset($_REQUEST["dep_nombre"])) {
                         throw new PDOException("Por favor digite el nombre");
                     }
-                    if (!isset($_REQUEST["apellido"])) {
-                        throw new PDOException("Por favor digite el apellido");
-                    }
-                    if (!isset($_REQUEST["fecha_nacimiento"])) {
-                        throw new PDOException("Por favor digite la fecha de nacimiento");
-                    }
-                    if (!isset($_REQUEST["salario"])) {
-                        throw new PDOException("Por favor digite el salario");
-                    }
-                    if (!isset($_REQUEST["dependencia_id"])) {
-                        throw new PDOException("Por favor seleccione la dependencia");
-                    }
-                    $per_id = $_REQUEST["identificacion"];
-                    $per_nombre = $_REQUEST["nombre"];
-                    $per_apellido = $_REQUEST["apellido"];
-                    $per_fecha_nacimiento = $_REQUEST["fecha_nacimiento"];
-                    $per_salario = $_REQUEST["salario"];
-                    $per_dependencia_id = $_REQUEST["dependencia_id"];
-
-                    $persona = new persona();
-                    $persona->setPerId($per_id);
-                    $persona->setPerNombre($per_nombre);
-                    $persona->setPerApellido($per_apellido);
-                    $persona->setPerFechaNacimiento($per_fecha_nacimiento);
-                    $persona->setPerSalario($per_salario);
-                    $persona->setPerDependenciaId($per_dependencia_id);
-                    $controladorPersona = new controladorPersona();
-                    $resultado = $controladorPersona->crear($persona);
+                
+                    $dep_id = $_REQUEST["dep_id"];
+                    $dep_nombre = $_REQUEST["dep_nombre"];
+                    
+                    $dependencia = new dependencia();
+                    $dependencia->setDepId($dep_id);
+                    $dependencia->setDepNombre($dep_nombre);
+                    
+                    $controladorDependencia = new controladorDependencia();
+                    $resultado = $controladorDependencia->crear($dependencia);
 
                     if($resultado["type"] == "success"){
                         echo '<h2 class="text-center text-success">'. $resultado["mensaje"] ."</h2>";
@@ -71,17 +53,11 @@ include_once '../../controlador/controladorPersona.php';
             <br>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-warning" href="listarPersona.php">Regresar al listado</a>
+                    <a class="btn btn-warning" href="listarDependencia.php">Regresar al listado</a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
     <!-- Optional JavaScript; choose one of the two! -->
 

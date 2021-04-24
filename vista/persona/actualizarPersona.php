@@ -38,12 +38,16 @@ include_once '../../controlador/controladorPersona.php';
                     if (!isset($_REQUEST["salario"])) {
                         throw new PDOException("Por favor digite el salario");
                     }
+                    if (!isset($_REQUEST["dependencia_id"])) {
+                        throw new PDOException("Por favor seleccione la dependencia");
+                    }
 
                     $per_id = $_REQUEST["identificacion"];
                     $per_nombre = $_REQUEST["nombre"];
                     $per_apellido = $_REQUEST["apellido"];
                     $per_fecha_nacimiento = $_REQUEST["fecha_nacimiento"];
                     $per_salario = $_REQUEST["salario"];
+                    $per_dependencia_id = $_REQUEST["dependencia_id"];
 
                     $persona = new persona();
                     $persona->setPerId($per_id);
@@ -51,6 +55,7 @@ include_once '../../controlador/controladorPersona.php';
                     $persona->setPerApellido($per_apellido);
                     $persona->setPerFechaNacimiento($per_fecha_nacimiento);
                     $persona->setPerSalario($per_salario);
+                    $persona->setPerDependenciaId($per_dependencia_id);
                     
                     $controladorPersona = new controladorPersona();
                     $resultado = $controladorPersona->actualizar($persona);
@@ -73,13 +78,6 @@ include_once '../../controlador/controladorPersona.php';
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

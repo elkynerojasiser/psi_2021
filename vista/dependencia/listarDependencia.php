@@ -1,8 +1,7 @@
 <!doctype html>
 <?php
-include_once '../../controlador/controladorPersona.php';
+include_once '../../controlador/controladorDependencia.php';
 include_once '../../modelo/conexion.php';
-include_once '../../modelo/persona.php';
 include_once '../../modelo/dependencia.php';
 ?>
 <html lang="es">
@@ -23,7 +22,7 @@ include_once '../../modelo/dependencia.php';
         <div class="row mt-5">
             <div class="col-md-12">
                 <h1 class="text-center text-success">
-                    LISTADO DE PERSONAS
+                    LISTADO DE DEPENDENCIAS
                 </h1>
             </div>
         </div>
@@ -31,7 +30,7 @@ include_once '../../modelo/dependencia.php';
             <div class="col-md-10 offset-md-1">
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-primary" href="formularioCrearPersona.php">Crear nuevo</a>
+                        <a class="btn btn-primary" href="formularioCrearDependencia.php">Crear nuevo</a>
                     </div>
                 </div>
                 <br>
@@ -40,45 +39,29 @@ include_once '../../modelo/dependencia.php';
                         <tr>
                             <td>Id</td>
                             <td>Nombre</td>
-                            <td>Apellido</td>
-                            <td>Fecha de nacimiento</td>
-                            <td>Salario</td>
-                            <td>Dependencia</td>
                             <td>Acciones</td>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $controladorPersona = new controladorPersona();
-                        $personas = $controladorPersona->listar();
-                        foreach ($personas as $persona) {
+                        $controladorDependencia = new controladorDependencia();
+                        $dependencias = $controladorDependencia->listar();
+                        foreach ($dependencias as $dependencia) {
                         ?>
                         <tr>
                             <td>
-                                <?php echo $persona->getPerId() ?>
+                                <?php echo $dependencia->getDepId() ?>
                             </td>
                             <td>
-                                <?php echo $persona->getPerNombre() ?>
-                            </td>
-                            <td>
-                            <?php echo $persona->getPerApellido() ?>
-                            </td>
-                            <td>
-                            <?php echo $persona->getPerFechaNacimiento() ?>
-                            </td>
-                            <td>
-                                <?php echo $persona->getPerSalario() ?>
-                            </td>
-                            <td>
-                                <?php echo $persona->getDependencia()->getDepNombre() ?>
+                                <?php echo $dependencia->getDepNombre() ?>
                             </td>
                             <td>
                                 <div class="row">
                                     <div class="col text-center">
-                                        <a class="btn btn-warning" href="formularioEditarPersona.php?per_id=<?php echo $persona->getPerId() ?>">Editar</a>
+                                        <a class="btn btn-warning" href="formularioEditarDependencia.php?dep_id=<?php echo $dependencia->getDepId() ?>">Editar</a>
                                     </div>
                                     <div class="col text-center">
-                                        <a class="btn btn-danger" href="formularioEliminarPersona.php?per_id=<?php echo $persona->getPerId() ?>">Eliminar</a>
+                                        <a class="btn btn-danger" href="formularioEliminarDependencia.php?dep_id=<?php echo $dependencia->getDepId() ?>">Eliminar</a>
                                     </div>
                                 </div>
                             </td>

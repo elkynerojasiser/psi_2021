@@ -18,6 +18,9 @@
             <div class="col">
                 <a class="btn btn-primary" href="/psi_2021/vista/persona/listarPersona.php">Listado de personas</a>
             </div>
+            <div class="col">
+                <a class="btn btn-primary" href="/psi_2021/vista/dependencia/listarDependencia.php">Listado de dependencias</a>
+            </div>
         </div>
     </div>
 

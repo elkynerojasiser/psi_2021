@@ -4,6 +4,7 @@
     include_once '../../modelo/conexion.php';
     include_once '../../controlador/controladorDependencia.php';
 ?>
+
 <html lang="es">
 
 <head>
@@ -14,7 +15,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <title>CREAR PERSONAS</title>
+    <title>EDITAR DEPENDENCIAS</title>
 </head>
 
 <body>
@@ -22,61 +23,40 @@
         <div class="row mt-5">
             <div class="col-md-10 offset-md-1">
                 <h1 class="text-center text-success">
-                    CREAR PERSONAS
+                    EDITAR DEPENDENCIAS
                 </h1>
             </div>
         </div>
-
+        <?php
+            if(!isset($_GET["dep_id"])){
+                throw new PDOException("No se recibio el id");
+            }
+            try{
+                $dep_id = $_GET["dep_id"];
+                $controladorDependencia = new controladorDependencia();
+                $resultado = $controladorDependencia->buscar($dep_id);
+                if(count($resultado)>0){
+                    $dependencia = $resultado[0];
+                }
+            }catch(PDOException $e){
+                echo "Falló la conexión " . $e->getMessage();
+            }
+        ?>
         <div class="row">
             <div class="col-md-10 offset-md-1">
                 <div class="card">
                     <div class="card-body">
-                        <form action="insertarPersona.php" method="POST">
+                        <form action="actualizarDependencia.php" method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="identificacion">Número de identificación</label>
-                                    <input name="identificacion" type="number" class="form-control" id="identificacion">
+                                    <label for="dep_id">Id</label>
+                                    <input name="dep_id" type="number" class="form-control" id="dep_id" value="<?php echo $dependencia->getDepId() ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="nombre">Nombre</label>
-                                    <input name="nombre" type="text" class="form-control" id="nombre">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="apellido">Apellido</label>
-                                    <input name="apellido" type="text" class="form-control" id="apellido">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                                    <input name="fecha_nacimiento" type="date" class="form-control" id="fecha_nacimiento">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="salario">Salario</label>
-                                    <input name="salario" type="number" class="form-control" id="salario">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="dependencia_id">Dependencia</label>
-                                    <select name="dependencia_id" id="dependencia_id" class="form-control">
-                                        <option value="">--Seleccione--</option>
-                                        <?php
-                                            $controladorDependencia = new controladorDependencia();
-                                            $dependencias = $controladorDependencia->listar();
-                                            if(count($dependencias)>0){
-                                                foreach($dependencias as $dependencia){
-                                                    echo '<option value="'.$dependencia->getDepId().'" >'.$dependencia->getDepNombre().'</option>';
-                                                }
-                                            }
-                                        ?>
-                                    </select>
+                                    <label for="dep_nombre">Nombre</label>
+                                    <input name="dep_nombre" type="text" class="form-control" id="dep_nombre" value="<?php echo $dependencia->getDepNombre() ?>">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -90,12 +70,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
     <!-- Optional JavaScript; choose one of the two! -->
 

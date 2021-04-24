@@ -1,8 +1,10 @@
 <!doctype html>
 <?php
     include_once '../../modelo/persona.php';
+    include_once '../../modelo/dependencia.php';
     include_once '../../modelo/conexion.php';
     include_once '../../controlador/controladorPersona.php';
+    include_once '../../controlador/controladorDependencia.php';
 ?>
 
 <html lang="es">
@@ -75,6 +77,27 @@
                                 <div class="form-group col-md-12">
                                     <label for="salario">Salario</label>
                                     <input name="salario" type="number" class="form-control" id="salario" value="<?php echo $persona->getPerSalario() ?>">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="dependencia_id">Dependencia</label>
+                                    <select name="dependencia_id" id="dependencia_id" class="form-control">
+                                        <option value="">--Seleccione--</option>
+                                        <?php
+                                            $controladorDependencia = new controladorDependencia();
+                                            $dependencias = $controladorDependencia->listar();
+                                            if(count($dependencias)>0){
+                                                foreach($dependencias as $dependencia){
+                                                    if($persona->getPerDependenciaId() == $dependencia->getDepId()){
+                                                        echo '<option value="'.$dependencia->getDepId().'" selected >'.$dependencia->getDepNombre().'</option>';
+                                                    }else{
+                                                        echo '<option value="'.$dependencia->getDepId().'" >'.$dependencia->getDepNombre().'</option>';
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-row">
